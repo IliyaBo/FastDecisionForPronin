@@ -6,10 +6,8 @@
 package javaapplication1;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.DirectoryStream;
@@ -21,7 +19,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import org.apache.commons.io.FilenameUtils;
 
 /**
@@ -34,11 +31,8 @@ public class MainClass {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        //List list = new FileFinder().findFiles("C:\\", "2850-95");
-        //System.out.println(list);
-        HashMap<String, String> map = readFile("C:\\Users\\DZharinov\\Desktop\\123.txt");//new HashMap<>();
+        HashMap<String, String> map = readFile("C:\\Users\\DZharinov\\Desktop\\123.txt");
         ArrayList<String> list = readAllFile("C:\\Users\\DZharinov\\Desktop\\output.txt");
-        //System.out.println(allStrings.toString());
         map.remove(map.remove("**.*"));
         System.out.println("*** File extension and wildcard matching ***");
         String[] extensions = {"java", "class"};
@@ -66,9 +60,6 @@ public class MainClass {
     private static void changeList(ArrayList<String> list, HashMap<String, String> map) {
         go:
         for (int i = 0; i < list.size(); i++) {
-            /*if (!list.get(i).contains("31556-2012")) {
-                continue;
-            }*/
             //System.out.println("str = " + list.get(i));
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 String key = entry.getKey();
@@ -162,7 +153,7 @@ public class MainClass {
                     fileFound = FilenameUtils.wildcardMatch(filename, key);
                     if (fileFound) {
                         //System.out.println("file found = "+key+", in path =" + filePath);
-                        entry.setValue(filename + "\t" + filePath.toString());
+                        entry.setValue(filePath.getParent().getFileName() + "\t" + filePath.getParent().getParent());
                         break;
                     }
                 }
